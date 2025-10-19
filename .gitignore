@@ -1,0 +1,26 @@
+# Node / Expo
+node_modules/
+.expo/
+.expo-shared/
+.expo/web-cache/
+.expo/packager-info.json
+.expo/devices.json
+
+# Builds / Dist
+dist/
+build/
+web-build/
+*.aab
+*.apk
+*.ipa
+
+# IDE / System
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Environment
+.env
+export/.env
