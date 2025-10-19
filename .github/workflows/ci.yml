@@ -7,6 +7,7 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,29 +17,26 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Node deps
-        run: npm ci || npm install
+      - name: Install Node deps (no lockfile yet; tolerate peers)
+        run: |
+          rm -f package-lock.json
+          npm install --legacy-peer-deps
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Python deps
+      - name: Install Python deps for export
         run: |
           python -m pip install --upgrade pip
           pip install -r export/requirements.txt
 
-      - name: Run unit tests
-        run: npx jest --passWithNoTests
+      - name: Build, test, and verify determinism
+        run: |
+          make verify
 
-      - name: Deterministic export
-        run: python3 export/export.py --out dist/exports/spark.json --deterministic
-
-      - name: Verify checksum existence
-        run: test -f SBOM/checksums.csv
-
-      - name: Upload artifacts
+      - name: Upload artifacts (export, checksums, provenance/SBOM)
         uses: actions/upload-artifact@v4
         with:
           name: spark-artifacts
@@ -46,3 +44,4 @@ jobs:
             dist/exports/spark.json
             SBOM/checksums.csv
             SBOM/provenance.json
+            SBOM/sbom.cdx.json
