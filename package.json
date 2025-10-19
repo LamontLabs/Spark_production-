@@ -1,0 +1,25 @@
+{
+  "name": "spark",
+  "version": "2.3.0",
+  "description": "Offline-first gratitude, wins & affirmations app",
+  "main": "src/app.tsx",
+  "scripts": {
+    "start": "expo start",
+    "test": "jest",
+    "verify": "bash verify.sh",
+    "export": "python3 export/export.py --out dist/exports/spark.json --deterministic"
+  },
+  "dependencies": {
+    "expo": "^52.0.0",
+    "expo-sqlite": "~13.0.0",
+    "react": "18.3.1",
+    "react-native": "0.76.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.38",
+    "@types/react-native": "^0.76.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.4.5"
+  },
+  "license": "MIT"
+}
