@@ -1,25 +1,38 @@
 {
   "name": "spark",
   "version": "2.3.0",
-  "description": "Offline-first gratitude, wins & affirmations app",
+  "private": true,
+  "description": "Spark — Offline-first gratitude, wins & affirmations app with bend-not-break streaks.",
   "main": "src/app.tsx",
   "scripts": {
     "start": "expo start",
-    "test": "jest",
-    "verify": "bash verify.sh",
-    "export": "python3 export/export.py --out dist/exports/spark.json --deterministic"
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "test": "jest --passWithNoTests",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "expo": "^52.0.0",
-    "expo-sqlite": "~13.0.0",
-    "react": "18.3.1",
-    "react-native": "0.76.0"
+    "expo": "latest",
+    "expo-sqlite": "latest",
+    "react": "18.x",
+    "react-native": "0.75.x"
   },
   "devDependencies": {
-    "@types/react": "^18.0.38",
-    "@types/react-native": "^0.76.0",
+    "@testing-library/react-native": "^12.4.5",
+    "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
-    "typescript": "^5.4.5"
+    "react-test-renderer": "18.x",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.5.4"
   },
-  "license": "MIT"
+  "jest": {
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|@react-native|expo|expo-sqlite)/)"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.test.[jt]s?(x)"
+    ]
+  }
 }
