@@ -1,0 +1,9 @@
+{
+  "name": "Spark",
+  "displayName": "Spark",
+  "version": "2.3.0",
+  "description": "Offline-first gratitude, wins & affirmations app with bend-not-break streaks.",
+  "owner": "Jesse J. Lamont",
+  "license": "MIT",
+  "targets": ["android", "ios", "web"]
+}
