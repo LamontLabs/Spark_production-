@@ -1,0 +1,40 @@
+name: release
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci || npm install
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: |
+          pip install -r export/requirements.txt
+          python3 export/export.py --out dist/exports/spark.json --deterministic
+
+      - name: Zip demo bundle
+        run: |
+          mkdir -p dist
+          zip -r dist/spark_v2.3_demo.zip dist/exports SBOM README.md LICENSE
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/spark_v2.3_demo.zip
+            SBOM/checksums.csv
+            SBOM/provenance.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
